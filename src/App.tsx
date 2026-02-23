@@ -1,31 +1,32 @@
-import Home from './pages/home/Home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Cadastro from './pages/cadastro/Cadastro';
-import Login from './pages/login/Login';
-import { AuthProvider } from './contexts/AuthContext';
-import ListaTemas from './components/tema/listatemas/ListaTemas';
+import DeletarTema from './components/tema/deletartema/DeletarTema';
 import FormTema from './components/tema/formtema/FormTema';
+import ListaTemas from './components/tema/listatemas/ListaTemas';
+import { AuthProvider } from './contexts/AuthContext';
+import Cadastro from './pages/cadastro/Cadastro';
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
 
 function App() {
   return (
     <>
       <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <div className="min-h-[80vh]">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/temas" element={<ListaTemas />}/>
-            <Route path="/cadastrartema" element={<FormTema />}/>
-            <Route path="/editartema" element={<FormTema />}/>
-
-          </Routes>
+        <BrowserRouter>
+          <Navbar />
+          <div className="min-h-[80vh]">
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/cadastro" element={<Cadastro />} />
+              <Route path="/temas" element={<ListaTemas />} />
+              <Route path="/cadastrartema" element={<FormTema />} />
+              <Route path="/editartema/:id" element={<FormTema />} />
+              <Route path="/deletartema/:id" element={<DeletarTema />} />
+            </Routes>
         </div>
-      <Footer />
+        <Footer />
       </BrowserRouter>
       </AuthProvider>
     </>
