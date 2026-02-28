@@ -7,6 +7,7 @@ import { buscar, atualizar, cadastrar } from "../../../services/Service";
 import { useContext, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ClipLoader } from "react-spinners";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 
 function FormPostagem() {
@@ -62,7 +63,7 @@ function FormPostagem() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/')
         }
     }, [token])
@@ -104,12 +105,12 @@ function FormPostagem() {
                 await atualizar(`/postagens`, postagem, setPostagem, {
                     headers: { Authorization: token }
                 })
-                alert('Postagem atualizada com sucesso!')
+                ToastAlerta('Postagem atualizada com sucesso!', 'success')
             } catch (error: any) {
                 if (error.toString().includes('401')) {
                     handleLogout()
                 } else {
-                    alert('Erro ao atualizar a Postagem.')
+                    ToastAlerta('Erro ao atualizar a Postagem.', 'error')
                 }
 
             }
@@ -118,12 +119,12 @@ function FormPostagem() {
                 await cadastrar(`/postagens`, postagem, setPostagem, {
                     headers: { Authorization: token }
                 })
-                alert('Postagem cadastrada com sucesso!')
+                ToastAlerta('Postagem cadastrada com sucesso!', 'success')
             } catch (error: any) {
                 if (error.toString().includes('401')) {
                     handleLogout()
                 } else {
-                    alert('Erro ao cadastrar a Postagem.')
+                    ToastAlerta('Erro ao cadastrar a Postagem.', 'error')
                 }
             }
         }
