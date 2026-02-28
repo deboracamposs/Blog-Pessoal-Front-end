@@ -1,5 +1,5 @@
 export default interface UsuarioLogin {
-    senha: string | number | readonly string[] | undefined;
+    senha: string;
     id: number;
     nome: string;
     usuario: string;

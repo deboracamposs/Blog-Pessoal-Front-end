@@ -27,7 +27,10 @@ function FormPostagem() {
 
     async function buscarPostagemPorId(id: string) {
         try {
-            await buscar(`/postagens/${id}`, setPostagem, {
+            await buscar(`/postagens/${id}`, (dados: any) => {
+                setPostagem(dados);
+                setTema(dados.tema);
+            }, {
                 headers: { Authorization: token }
             })
         } catch (error: any) {
@@ -88,7 +91,7 @@ function FormPostagem() {
             ...postagem,
             [e.target.name]: e.target.value,
             tema: tema,
-            usuario: usuario,
+            usuario: usuario
         });
     }
 
@@ -172,13 +175,12 @@ function FormPostagem() {
                     <p>Tema da Postagem</p>
                     <select name="tema" id="tema" className="border p-2 border-slate-800 rounded"
                         onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+                        value={tema.id}
                         >
-                        <option value="" selected disabled>Selecione um tema</option>
+                        <option value={0} disabled>Selecione um tema</option>
 
                         {temas.map((tema) => (
-                        <> 
-                            <option value={tema.id}> {tema.descricao}</option>
-                        </>
+                            <option key={tema.id} value={tema.id}> {tema.descricao}</option>
                         ))}
 
                     </select>
